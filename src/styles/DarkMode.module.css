@@ -1,3 +1,26 @@
-/* TODO (optional): Define styles for dark mode */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background-color: var(--btn-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 0.18s, border-color 0.18s;
+  white-space: nowrap;
+}
 
-/* TODO (optional): Ensure text and background colors adjust for dark mode */
+.toggle:hover {
+  border-color: var(--accent);
+  background-color: var(--btn-bg-hover);
+}
+
+.icon {
+  font-size: 1rem;
+  line-height: 1;
+}
