@@ -4,7 +4,7 @@ import styles from '../styles/Cart.module.css'
 const Cart = ({ cart }) => {
   return (
     <div className={styles.cart}>
-      <h2 className={styles.heading}>Cart ({cart.length})</h2>
+      <h2 className={styles.heading}>Shopping Cart ({cart.length})</h2>
       {cart.length === 0 ? (
         <p className={styles.empty}>Your cart is empty.</p>
       ) : (

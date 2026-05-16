@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import ProductList from './components/ProductList'
+import ProductList, { sampleProducts } from './components/ProductList'
 import DarkModeToggle from './components/DarkModeToggle'
 import Cart from './components/Cart'
+import Filter from './components/Filter'
 import './index.css'
+
+const categories = ["All", "Dairy", "Fruits", "Bakery", "Meat"]
 
 const App = () => {
   // TODO: Implement state for dark mode toggle
@@ -14,40 +17,53 @@ const App = () => {
   // TODO: Implement state for category filtering
   const [selectedCategory, setSelectedCategory] = useState("All")
 
-  function handleToggle() {
-    setDarkMode(prev => !prev)
+  const addToCart = (product) => {
+    if (!cart.find((item) => item.id === product.id)) {
+      setCart([...cart, product])
+    }
   }
-
-  function addToCart(product) {
-    setCart(prevCart => [...prevCart, product])
-  }
-
+ 
   const filteredProducts =
     selectedCategory === "All"
-      ? productsData
-      : productsData.filter(product => product.category === selectedCategory)
+      ? sampleProducts
+      : sampleProducts.filter((p) => p.category === selectedCategory)
+ 
 
   return (
-    <div className={darkMode ? "dark" : "light"}>
-      <div>
-        <h1>🛒 Shopping App</h1>
-        <DarkModeToggle
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-        />
-      </div>
-
-      <Filter
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+    <div>
+      <DarkModeToggle 
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
       />
 
-      <ProductList
-        products={filteredProducts}
-        addToCart={addToCart}
-      />
-
-      <Cart cart={cart} />
+      <h1>Grocery Shopping App</h1>
+ 
+      {/* Category Filter */}
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+      >
+        {categories.map((cat) => (
+          <option key={cat} value={cat}>
+            {cat}
+          </option>
+        ))}
+      </select>
+ 
+      {/* Product List */}
+      <ProductList products={filteredProducts} addToCart={addToCart} />
+ 
+      {/* Cart */}
+      <h2>Shopping Cart ({cart.length} items)</h2>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>{item.name} is in your cart</li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
