@@ -1,12 +1,21 @@
 import React from 'react'
+import styles from '../styles/Cart.module.css'
 
-const Cart = () => {
+const Cart = ({ cart }) => {
   return (
-    <div>
-      <h2>Shopping Cart</h2>
-      <ul>
-        {/* TODO: Include items here in li tags with text 'ITEM.NAME is in your cart.' */}
-      </ul>
+    <div className={styles.cart}>
+      <h2 className={styles.heading}>Cart ({cart.length})</h2>
+      {cart.length === 0 ? (
+        <p className={styles.empty}>Your cart is empty.</p>
+      ) : (
+        <ul className={styles.list}>
+          {cart.map((product, index) => (
+            <li key={index} className={styles.item}>
+              {product.name} is in your cart.
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
